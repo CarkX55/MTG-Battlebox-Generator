@@ -35,8 +35,60 @@
         Bóveda Comunidad
     </button>
 
+    <!-- Niebla de Apertura (Se difumina al cargar la página) -->
+    <div id="opening-fog-screen" style="position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:99999; background:#050505; display:flex; align-items:center; justify-content:center; flex-direction:column; color:white; transition: opacity 4s cubic-bezier(0.4, 0, 0.2, 1); pointer-events:none;">
+        <div class="fog-container" style="z-index:-1; opacity:1;">
+            <div class="fog-layer fog-back"></div>
+            <div class="fog-layer fog-front"></div>
+        </div>
+    </div>
+
+    <!-- PANTALLA CERO: Selección de Formato y Portal de Entrada Épico -->
+    <main id="intro-screen" class="intro-overlay">
+        
+        <!-- Canvas para renderizar sistema de partículas (Humo y Chispas mágicas) -->
+        <canvas id="epic-canvas"></canvas>
+        <div class="intro-content">
+            <h1 class="intro-title" id="magic-title">M A G I C</h1>
+            <p class="intro-subtitle">Elige el Campo de Batalla</p>
+            <div class="format-choices">
+                <!-- Monolito: Cocina Clásica -->
+                <button class="btn-format btn-blue" id="btn-format-standard" data-format="standard">
+                    <div class="runes-top">ᛗ ᚨ ᚷ ᛁ ᚲ</div>
+                    <div class="runes-left">ᛈ ᚱ ᛟ ᚷ</div>
+                    <div class="runes-right">ᛒ ᚨ ᛏ ᛚ</div>
+                    <div class="monolith-content">
+                        <span class="icon">🔹</span>
+                        <h3>COCINA<br>CLÁSICA</h3>
+                        <div class="monolith-divider">
+                            <span class="rune">ᛉ</span>
+                        </div>
+                        <small>UNRESTRICTED<br>KITCHEN TABLE</small>
+                    </div>
+                    <div class="runes-bottom">ᛟ ᚱ ᚨ ᚲ ᛚ ᛖ</div>
+                </button>
+
+                <!-- Monolito: Commander -->
+                <button class="btn-format btn-orange" id="btn-format-commander" data-format="commander">
+                    <div class="runes-top">ᚲ ᛟ ᛗ ᛗ</div>
+                    <div class="runes-left">ᛞ ᚱ ᚨ ᚷ</div>
+                    <div class="runes-right">ᛗ ᛟ ᚾ ᛊ</div>
+                    <div class="monolith-content">
+                        <span class="icon">🔥</span>
+                        <h3>COMMANDER</h3>
+                        <div class="monolith-divider">
+                            <span class="rune">ᛟ</span>
+                        </div>
+                        <small>100-CARD SINGLETON<br>// multiplayer //</small>
+                    </div>
+                    <div class="runes-bottom">ᛚ ᛖ ᚷ ᛖ ᚾ ᛞ</div>
+                </button>
+            </div>
+        </div>
+    </main>
+
     <!-- PANTALLA PRINCIPAL: El Salón Central -->
-    <main id="home-screen" class="container view active-view">
+    <main id="home-screen" class="container view">
         <header class="hero">
             <h1>LA BIBLIOTECA DEL ORÁCULO</h1>
             <h2>La Forja Suprema de las Leyendas</h2>
@@ -49,44 +101,8 @@
             <p>Adéntrate en las salas de cada Arquetipo abajo. Encontrarás la Base de Datos completa con todos los mazos catalogados en la historia de Magic. Selecciona, configura y envía a tu Battle Box.</p>
         </header>
 
-        <section class="archetypes-nav">
-            <!-- Botones gigantes para entrar a cada sala -->
-            <button class="arch-door door-aggro" data-arch="aggro">
-                <div class="door-glow"></div>
-                <span class="icon">⚔️</span>
-                <h3>AGGRO</h3>
-                <small>Rápido y Letal</small>
-            </button>
-            <button class="arch-door door-control" data-arch="control">
-                <div class="door-glow"></div>
-                <span class="icon">🛡️</span>
-                <h3>CONTROL</h3>
-                <small>Paciencia y Dictadura</small>
-            </button>
-            <button class="arch-door door-midrange" data-arch="midrange">
-                <div class="door-glow"></div>
-                <span class="icon">⚖️</span>
-                <h3>MIDRANGE</h3>
-                <small>Adaptabilidad Brutal</small>
-            </button>
-            <button class="arch-door door-tempo" data-arch="tempo">
-                <div class="door-glow"></div>
-                <span class="icon">🗡️</span>
-                <h3>TEMPO</h3>
-                <small>Esgrima Inteligente</small>
-            </button>
-            <button class="arch-door door-combo" data-arch="combo">
-                <div class="door-glow"></div>
-                <span class="icon">🧩</span>
-                <h3>COMBO</h3>
-                <small>Matemáticas Rotas</small>
-            </button>
-            <button class="arch-door door-ramp" data-arch="ramp">
-                <div class="door-glow"></div>
-                <span class="icon">🏔️</span>
-                <h3>RAMP</h3>
-                <small>Recursos Titánicos</small>
-            </button>
+        <section class="archetypes-nav" id="archetypes-nav">
+            <!-- Botones gigantes renderizados por JS según el formato elegido -->
         </section>
         
         <footer>
@@ -259,6 +275,12 @@
 
         <div id="community-loader" style="text-align:center; padding: 3rem; color: #3b82f6;">
             <div style="font-size: 1.5rem; margin-bottom: 1rem;" class="glitch-text" data-text="Sincronizando con Firebase...">Sincronizando con Firebase...</div>
+        </div>
+
+        <div id="community-filters" style="display: none; justify-content: center; gap: 1rem; margin-bottom: 2rem;">
+            <button class="btn-filter-format active" data-filter="all" style="padding: 0.5rem 1.5rem; border-radius: 20px; border: 1px solid #3b82f6; background: rgba(59, 130, 246, 0.4); color: white; cursor: pointer;">Todos</button>
+            <button class="btn-filter-format" data-filter="standard" style="padding: 0.5rem 1.5rem; border-radius: 20px; border: 1px solid #ef4444; background: transparent; color: white; cursor: pointer;">⚔️ Clásico</button>
+            <button class="btn-filter-format" data-filter="commander" style="padding: 0.5rem 1.5rem; border-radius: 20px; border: 1px solid #f59e0b; background: transparent; color: white; cursor: pointer;">👑 Commander</button>
         </div>
 
         <div id="community-list" class="bb-list" style="display: none;">

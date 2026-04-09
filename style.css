@@ -125,8 +125,8 @@ h1, h2, h3, h4, .quote { font-family: 'Cinzel', serif; }
 .door-ramp:hover .door-glow { box-shadow: 0 0 30px rgba(6, 182, 212, 0.4); opacity: 1; border-color: #06b6d4; }
 
 .arch-door .icon { font-size: 3.5rem; display: block; margin-bottom: 1rem; }
-.arch-door h3 { font-size: 1.8rem; margin-bottom: 0.5rem; }
-.arch-door small { font-family: 'Inter'; color: var(--text-muted); font-size: 1rem; }
+.arch-door h3 { font-size: clamp(1.2rem, 4vw, 1.8rem); margin-bottom: 0.5rem; line-height: 1.2; word-wrap: break-word;}
+.arch-door small { display: block; font-family: 'Inter', sans-serif; color: var(--text-muted); font-size: 0.95rem; line-height: 1.4; word-wrap: break-word; overflow-wrap: break-word; }
 
 /* Detail Screen Header */
 .screen-header { margin-bottom: 3rem; text-align: center; position: relative; padding: 3rem; background: var(--panel-bg); border-radius: 16px; border: 1px solid var(--panel-border); }
@@ -428,4 +428,294 @@ h1, h2, h3, h4, .quote { font-family: 'Cinzel', serif; }
     margin-left: 2rem;
     font-family: 'Inter', sans-serif;
     margin-bottom: 1rem;
+}
+
+/* -------------------------------------
+ *  Portal de Entrada Épico (Formatos) - Variante 3: Fortaleza Antigua
+ * ------------------------------------- */
+.intro-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: #050505 url('variant3_bg.png') center/cover no-repeat;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.intro-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* Efecto niebla cinemática oscura para asentar la imagen */
+    background: linear-gradient(to top, rgba(10,10,12,0.9) 0%, rgba(10,10,12,0.2) 60%, rgba(10,10,12,0.6) 100%);
+    z-index: -1;
+}
+/* Zoom muy sutil a las cenizas del fondo */
+@keyframes cinematicZoom {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+#epic-canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: 10000;
+    pointer-events: none;
+    mix-blend-mode: screen; /* Para que las brasas destaquen más fuertes sobre la niebla */
+}
+
+/* El Contenido Frontal */
+.intro-content {
+    position: relative;
+    z-index: 10001;
+    text-align: center;
+    animation: fadeInIntro 2s ease-out;
+}
+@keyframes fadeInIntro {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.intro-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    color: #e2e8f0;
+    text-shadow: 0 0 10px rgba(0,0,0,0.8), 0 0 40px rgba(245, 158, 11, 0.4);
+    margin-bottom: 0.2rem;
+    letter-spacing: 20px;
+}
+.intro-subtitle {
+    font-size: 1.4rem;
+    color: #94a3b8;
+    margin-bottom: 5rem;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+}
+.format-choices {
+    display: flex;
+    gap: 4vw;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-end; /* Asientan sobre el suelo visual */
+    position: relative;
+    z-index: 10001;
+    margin-top: 2rem;
+}
+
+/* Botones Fortaleza y Runas (Stone Monoliths) */
+.btn-format {
+    background: 
+        radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent 60%),
+        linear-gradient(160deg, #2a313c 0%, #1a1e25 40%, #0a0d14 100%);
+    border: 2px solid #334155;
+    padding: 3rem 1rem;
+    border-radius: 20px 25px 15px 30px / 25px 20px 30px 15px; /* Irregular rock edges */
+    color: white;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    width: 350px;
+    height: 480px; /* Monolitos masivos y verticales */
+    text-align: center;
+    box-shadow: 
+        inset -8px -15px 30px rgba(0,0,0,0.8), /* Sombra interna pesada (roca) */
+        inset 5px 10px 20px rgba(255,255,255,0.02), /* Luz en el borde superior */
+        0 30px 60px rgba(0,0,0,0.95), /* Peso absoluto contra el suelo */
+        0 0 0 1px rgba(255,255,255,0.05); 
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Brillo interno de runa desactivada */
+.btn-format::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%; height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255, 0.02) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.btn-format:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+.btn-format:hover::after {
+    opacity: 1; /* Iluminación interna de la piedra on hover */
+}
+
+/* Colores específicos para cada Monolito */
+.btn-blue:hover {
+    border-color: #0ea5e9;
+    box-shadow: 
+        inset -8px -15px 30px rgba(0,0,0,0.8),
+        0 20px 50px rgba(0,0,0,0.9),
+        0 0 60px rgba(14, 165, 233, 0.3); /* Fuego azul radiando hacia el fondo */
+}
+.btn-orange:hover {
+    border-color: #f97316;
+    box-shadow: 
+        inset -8px -15px 30px rgba(0,0,0,0.8),
+        0 20px 50px rgba(0,0,0,0.9),
+        0 0 60px rgba(249, 115, 22, 0.3); /* Fuego naranja radiando hacia el fondo */
+}
+
+.btn-blue:hover .icon, .btn-blue:hover h3, .btn-blue:hover .rune {
+    color: #bae6fd;
+    text-shadow: 0 0 15px rgba(14, 165, 233, 0.8), 0 0 30px rgba(56, 189, 248, 0.6);
+}
+.btn-orange:hover .icon, .btn-orange:hover h3, .btn-orange:hover .rune {
+    color: #fed7aa;
+    text-shadow: 0 0 15px rgba(249, 115, 22, 0.8), 0 0 30px rgba(251, 146, 60, 0.6);
+}
+
+.monolith-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+.monolith-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+    margin: 1.5rem 0;
+    position: relative;
+}
+.monolith-divider .rune {
+    position: absolute;
+    background: #171c24; /* Color similar a la piedra para fingir corte */
+    padding: 0 0.5rem;
+    color: #64748b;
+    font-size: 1.2rem;
+    transition: all 0.4s ease;
+}
+
+.btn-format .icon { 
+    font-size: 3.5rem; 
+    color: #cbd5e1;
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.8));
+    transition: all 0.4s ease;
+}
+.btn-format h3 { 
+    font-family: 'Cinzel', serif; 
+    font-size: 2.3rem; 
+    color: #e2e8f0;
+    letter-spacing: 2px;
+    transition: all 0.4s ease;
+    line-height: 1.1;
+}
+.btn-format small { 
+    font-size: 0.95rem; 
+    color: #64748b; 
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 2px;
+    line-height: 1.4;
+    transition: all 0.4s ease;
+}
+
+/* Runas Decorativas alrededor del borde de la piedra */
+.runes-top, .runes-bottom, .runes-left, .runes-right {
+    position: absolute;
+    font-size: 1.1rem;
+    letter-spacing: 6px;
+    opacity: 0.4;
+    transition: all 0.5s ease;
+    font-family: 'Cinzel', serif;
+    color: #475569;
+    z-index: 1;
+}
+.runes-left { top: 15%; left: 1rem; writing-mode: vertical-rl; text-orientation: upright; bottom: 15%; display: flex; justify-content: space-between;}
+.runes-right { top: 15%; right: 1rem; writing-mode: vertical-rl; text-orientation: upright; bottom: 15%; display: flex; justify-content: space-between;}
+.runes-top { top: 1.5rem; left: 50%; transform: translateX(-50%); width: 80%; display: flex; justify-content: space-between;}
+.runes-bottom { bottom: 1.5rem; left: 50%; transform: translateX(-50%); width: 80%; display: flex; justify-content: space-between;}
+
+.btn-blue:hover .runes-top, .btn-blue:hover .runes-bottom, .btn-blue:hover .runes-left, .btn-blue:hover .runes-right {
+    opacity: 0.8;
+    color: #0ea5e9;
+    text-shadow: 0 0 10px #0ea5e9;
+}
+.btn-orange:hover .runes-top, .btn-orange:hover .runes-bottom, .btn-orange:hover .runes-left, .btn-orange:hover .runes-right {
+    opacity: 0.8;
+    color: #f97316;
+    text-shadow: 0 0 10px #f97316;
+}
+
+.intro-fade-out {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* -------------------------------------
+ *  FOG OF WAR (Niebla de Guerra)
+ * ------------------------------------- */
+.fog-container {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    overflow: hidden;
+    z-index: 10000; /* Entre el bg y el canvas de partículas */
+    pointer-events: none;
+    mix-blend-mode: screen; 
+    opacity: 0.85;
+}
+
+.fog-layer {
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: url('epic_smoke_intro.png') center/cover no-repeat;
+    filter: blur(8px) contrast(1.2);
+    /* Animación muy lenta de rotación y escalado para efecto volumétrico */
+}
+
+.fog-back {
+    opacity: 0.6;
+    animation: fog-drift-1 40s linear infinite alternate;
+}
+
+.fog-front {
+    opacity: 0.9;
+    animation: fog-drift-2 30s linear infinite alternate-reverse;
+}
+
+@keyframes fog-drift-1 {
+    0% { transform: scale(1) rotate(0deg) translate(0, 0); }
+    100% { transform: scale(1.2) rotate(5deg) translate(-2%, 2%); }
+}
+
+@keyframes fog-drift-2 {
+    0% { transform: scale(1.1) rotate(0deg) translate(2%, -2%); }
+    100% { transform: scale(1.3) rotate(-5deg) translate(-2%, 0); }
+}
+
+/* El efecto épico de Disipación de Google Stitch AI */
+.intro-fade-out .fog-container {
+    animation: fog-dissipate 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes fog-dissipate {
+    0% { 
+        opacity: 0.85; 
+        transform: scale(1); 
+        filter: blur(8px); 
+    }
+    100% { 
+        opacity: 0; 
+        transform: scale(2) translateY(-10%); 
+        filter: blur(25px); 
+    }
 }

@@ -352,9 +352,165 @@ const mtgDatabase = {
     }
 };
 
+const commanderDatabase = {
+    "voltron": {
+        title: "VOLTRON",
+        subtitle: "Un Comandante Intocable",
+        speed: "👑 Equipar y Golpear",
+        icon: "🦾",
+        colorBg: "rgba(245, 158, 11, 0.1)",
+        colorBorder: "#f59e0b",
+        quote: "No necesito ejércitos. Mi Comandante es el ejército.",
+        decks: [
+            {
+                name: "Auras Hexproof",
+                colors: "🟢 ⚪",
+                mechanic: "Tu comandante tiene Antimaleficio. Le adhieres 15 auras distintas hasta volverlo imbloqueable, indestructible y letal, buscando hacer 21 daños de comandante a cada rival.",
+                tribal: false,
+                theme: "#f59e0b"
+            },
+            {
+                name: "Equipment Master",
+                colors: "🔴 ⚪",
+                mechanic: "Juegas a tu comandante, y luego dedicas tu maná a buscar espadas místicas, martillos pesados y armaduras que le otorgan habilidades masivas y protección de colores.",
+                tribal: "Caballeros, Guerreros",
+                theme: "#ef4444"
+            }
+        ]
+    },
+    "aristocrats": {
+        title: "ARISTÓCRATAS",
+        subtitle: "La Muerte es Beneficio",
+        speed: "🩸 Drenaje Inexorable",
+        icon: "💀",
+        colorBg: "rgba(168, 85, 247, 0.1)",
+        colorBorder: "#a855f7",
+        quote: "Algunos de vosotros moriréis, pero es un sacrificio que estoy dispuesto a aceptar.",
+        decks: [
+            {
+                name: "Blood Artist Drain",
+                colors: "⚫ ⚪",
+                mechanic: "Generas tokens o criaturas baratas para luego sacrificarlas tú mismo ('fooder'). Cada muerte drena 1 vida a todos los rivales a la vez, esquivando la fase de combate por completo.",
+                tribal: "Vampiros, Clérigos",
+                theme: "#a855f7"
+            },
+            {
+                name: "Graveyard Value",
+                colors: "⚫ 🟢",
+                mechanic: "Tu cementerio es una segunda mano. Bajas al comandante, sacrificas criaturas para robar cartas y las reanimas una y otra vez provocando efectos infinitos de entrada al campo.",
+                tribal: "Zombis, Insectos",
+                theme: "#22c55e"
+            }
+        ]
+    },
+    "spellslinger": {
+        title: "SPELLSLINGER",
+        subtitle: "Tormenta de Magia Pura",
+        speed: "🌪️ Explosión en Cadena",
+        icon: "⚡",
+        colorBg: "rgba(59, 130, 246, 0.1)",
+        colorBorder: "#3b82f6",
+        quote: "Mis criaturas no atacan; simplemente miran cómo te reduce a cenizas mi magia.",
+        decks: [
+            {
+                name: "Storm & Rebound",
+                colors: "🔵 🔴",
+                mechanic: "Tu comandante premia jugar Instantes y Conjuros baratos robando más cartas. En un turno encadenas 15 hechizos que culminan en un torrente imparable de daño de Tormenta ('Storm').",
+                tribal: "Hechiceros",
+                theme: "#3b82f6"
+            },
+            {
+                name: "Spell Copy",
+                colors: "🔵 🔴 🟢",
+                mechanic: "Juegas hechizos devastadores de alto coste y usas habilidades de tu comandante para copiarlos 2 o 3 veces simultáneamente, arrasando la mesa entera sin que el oponente pueda responder a tiempo.",
+                tribal: false,
+                theme: "#0ea5e9"
+            }
+        ]
+    },
+    "group_hug": {
+        title: "GROUP HUG",
+        subtitle: "Amigo de Todos... Hasta el Final",
+        speed: "🤝 Política y Diplomacia",
+        icon: "💌",
+        colorBg: "rgba(34, 197, 94, 0.1)",
+        colorBorder: "#22c55e",
+        quote: "¿Por qué pelearnos? Robemos todos cartas y tengamos mucho maná... *risa malvada*.",
+        decks: [
+            {
+                name: "Politician / Kingmaker",
+                colors: "🟢 ⚪ 🔵",
+                mechanic: "Regalas aceleración de maná y robos masivos a todos los jugadores. Evitas que te ataquen por ser 'el apoyo' pacífico. Cuando sólo queda un rival confiado, te giras y revelas un combo demoledor.",
+                tribal: "Hipopótamos, Puebloarbóreo",
+                theme: "#22c55e"
+            },
+            {
+                name: "Forced Draw Action",
+                colors: "🔵 ⚫ 🔴",
+                mechanic: "Haces que todo el mundo robe tantas cartas que acaban muriendo exhaustos de su propia baraja o recibiendo daño por cada carta robada mediante encantamientos punitivos.",
+                tribal: false,
+                theme: "#6366f1"
+            }
+        ]
+    },
+    "typal": {
+        title: "TYPAL (TRIBAL)",
+        subtitle: "Unión de la Raza",
+        speed: "🐲 Invocación de Masas",
+        icon: "🛡️",
+        colorBg: "rgba(239, 68, 68, 0.1)",
+        colorBorder: "#ef4444",
+        quote: "Nuestras escamas, nuestras giles y nuestras orejas puntiagudas dominan juntos.",
+        decks: [
+            {
+                name: "Dragon Ramp",
+                colors: "🔴 🟢 🔵 ⚪ ⚫",
+                mechanic: "Llevas al comandante de la Raza Dragón, dedicas los turnos 1, 2 y 3 a crear maná adicional y del turno 5 en adelante bajas dragones legendarios colosales en cada turno.",
+                tribal: "Dragones",
+                theme: "#ef4444"
+            },
+            {
+                name: "Elfball",
+                colors: "🟢",
+                mechanic: "Generas elfos que producen maná (dorks). Cada elfo hace que el siguiente sea más fuerte o genere más elfos. Produces cantidades industriales de maná para lanzar un hechizo final ('Finale of Devastation').",
+                tribal: "Elfos",
+                theme: "#10b981"
+            }
+        ]
+    },
+    "stax": {
+        title: "STAX",
+        subtitle: "La Prisión del Tablero",
+        speed: "🛑 Asfixia Total",
+        icon: "⛓️",
+        colorBg: "rgba(100, 116, 139, 0.1)",
+        colorBorder: "#64748b",
+        quote: "¿Creías que venías a jugar a Magic? Estás aquí para mirarme a mí jugar a Magic.",
+        decks: [
+            {
+                name: "Prison & Taxation",
+                colors: "⚪ 🔵 ⚫",
+                mechanic: "Colocas artefactos y encantamientos que obligan a los rivales a pagar maná extra por atacar, les ralentizan, o impiden que la mesa se enderece (untap). Terminas asfixiando por completo sus recursos.",
+                tribal: "Humanos (Inquisidores)",
+                theme: "#94a3b8"
+            }
+        ]
+    }
+};
+
+let globalFormat = 'standard'; // 'standard' o 'commander'
 let battleBox = JSON.parse(localStorage.getItem('mtgBattleBox')) || [];
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Disipar la niebla épica inicial tras cargar
+    const openingFog = document.getElementById('opening-fog-screen');
+    if (openingFog) {
+        setTimeout(() => {
+            openingFog.style.opacity = '0';
+            setTimeout(() => { openingFog.style.display = 'none'; }, 4000);
+        }, 800);
+    }
+
     const homeScreen = document.getElementById('home-screen');
     const detailScreen = document.getElementById('detail-screen');
     const battleboxScreen = document.getElementById('battlebox-screen');
@@ -494,14 +650,144 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let activeSelection = {}; // Stores temp config data
 
-    // Nav: Archetype doors
-    document.querySelectorAll('.arch-door').forEach(door => {
-        door.addEventListener('click', () => {
-            const archKey = door.getAttribute('data-arch');
-            renderDetailScreen(archKey);
-            switchViews(homeScreen, detailScreen);
+    // Nav: Intro Screen Format Logic
+    const introScreen = document.getElementById('intro-screen');
+    const archetypesNav = document.getElementById('archetypes-nav');
+    
+    function renderHomeDoors(db) {
+        archetypesNav.innerHTML = '';
+        for (const archKey in db) {
+            const arch = db[archKey];
+            const btn = document.createElement('button');
+            btn.className = `arch-door door-${archKey}`; // mantengo la clase por consistencia
+            btn.setAttribute('data-arch', archKey);
+            
+            btn.innerHTML = `
+                <div class="door-glow" style="border-color: ${arch.colorBorder}; box-shadow: 0 0 30px ${arch.colorBg};"></div>
+                <span class="icon">${arch.icon}</span>
+                <h3>${arch.title}</h3>
+                <small>${arch.subtitle}</small>
+            `;
+            
+            // Hover manual por JS para manejar colores dinámicos
+            btn.addEventListener('mouseenter', () => {
+                const glow = btn.querySelector('.door-glow');
+                glow.style.opacity = '1';
+                btn.style.transform = 'translateY(-10px) scale(1.05)';
+            });
+            btn.addEventListener('mouseleave', () => {
+                const glow = btn.querySelector('.door-glow');
+                glow.style.opacity = '0';
+                btn.style.transform = 'none';
+            });
+            
+            btn.addEventListener('click', () => {
+                renderDetailScreen(archKey, db);
+                switchViews(homeScreen, detailScreen);
+            });
+            
+            archetypesNav.appendChild(btn);
+        }
+    }
+
+    // EPIC CANVAS RENDERING (High Fidelity)
+    let animationFrameId;
+    function initEpicCanvas() {
+        const canvas = document.getElementById('epic-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        
+        // Fix devicePixelRatio para máxima calidad en pantallas modernas/Retina
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = window.innerWidth * dpr;
+        canvas.height = window.innerHeight * dpr;
+        ctx.scale(dpr, dpr);
+        
+        // CSS properties para mantener tamaño real
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+
+        const particles = [];
+        const numParticles = 150;
+
+        for (let i = 0; i < numParticles; i++) {
+            particles.push({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                radius: Math.random() * 3 + 1,
+                vx: (Math.random() - 0.5) * 0.8,
+                vy: (Math.random() - 1) * 3 - 0.5,
+                hue: Math.random() * 40 + 10, // Rojos y dorados
+                alpha: Math.random() * 0.8 + 0.1
+            });
+        }
+
+        function render() {
+            ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+            for (let i = 0; i < numParticles; i++) {
+                const p = particles[i];
+                
+                // Generar gradiente radial para luz ultra-realista
+                const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius * 2);
+                gradient.addColorStop(0, `hsla(${p.hue}, 100%, 70%, ${p.alpha})`); // núcleo brillante
+                gradient.addColorStop(0.4, `hsla(${p.hue}, 100%, 50%, ${p.alpha * 0.5})`);
+                gradient.addColorStop(1, `hsla(${p.hue}, 100%, 30%, 0)`); // corona difuminada
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius * 2, 0, Math.PI * 2);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+
+                // Movimiento flotante termodinámico
+                p.x += Math.sin(p.y * 0.01) * 0.5 + p.vx;
+                p.y += p.vy;
+                p.alpha -= 0.003; 
+
+                if (p.x < 0 || p.x > window.innerWidth || p.y < 0 || p.alpha <= 0) {
+                    p.x = Math.random() * window.innerWidth;
+                    p.y = window.innerHeight + 20;
+                    p.alpha = Math.random() * 0.8 + 0.2;
+                }
+            }
+            animationFrameId = requestAnimationFrame(render);
+        }
+        render();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            ctx.scale(dpr, dpr);
+            canvas.style.width = window.innerWidth + 'px';
+            canvas.style.height = window.innerHeight + 'px';
         });
-    });
+    }
+
+    if (introScreen && introScreen.style.display !== 'none') {
+        initEpicCanvas();
+    }
+
+    const btnFormatStandard = document.getElementById('btn-format-standard');
+    const btnFormatCommander = document.getElementById('btn-format-commander');
+    
+    function chooseFormat(format) {
+        globalFormat = format;
+        introScreen.classList.add('intro-fade-out');
+        
+        setTimeout(() => {
+            introScreen.style.display = 'none';
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            homeScreen.classList.add('active-view');
+            if (format === 'commander') {
+                renderHomeDoors(commanderDatabase);
+            } else {
+                renderHomeDoors(mtgDatabase);
+            }
+        }, 2500); // 2.5s para la disipación épica de la IA de Stitch
+    }
+
+    if (btnFormatStandard) btnFormatStandard.addEventListener('click', () => chooseFormat('standard'));
+    if (btnFormatCommander) btnFormatCommander.addEventListener('click', () => chooseFormat('commander'));
 
     // Nav: Open Battle Box
     btnOpenBB.addEventListener('click', () => {
@@ -600,8 +886,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Render Archetype detail
-    function renderDetailScreen(archKey) {
-        const data = mtgDatabase[archKey];
+    function renderDetailScreen(archKey, db) {
+        const data = db[archKey];
         let html = `
             <div class="screen-header" style="border-color: ${data.colorBorder}; box-shadow: 0 0 40px ${data.colorBg};">
                 <button class="btn-back" id="btn-go-back">
@@ -650,10 +936,10 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.addEventListener('click', () => {
                 const k = btn.getAttribute('data-key');
                 const i = btn.getAttribute('data-idx');
-                const dk = mtgDatabase[k];
+                const dk = db[k];
                 const item = dk.decks[i];
                 
-                activeSelection = { archName: dk.title, deckName: item.name };
+                activeSelection = { archName: dk.title, deckName: item.name, format: globalFormat };
                 
                 modalDeckDisplay.textContent = `${item.name}`;
                 modalDeckDisplay.style.color = item.theme;
@@ -722,22 +1008,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 const id = parseInt(btn.getAttribute('data-id'));
                 const d = battleBox.find(x => x.id === id);
                 
-                const prompt = `Actúa como un experto jugador histórico y pro-builder de Magic: The Gathering.
+                const isCmdr = d.format === 'commander';
+                let prompt = "";
+                if (isCmdr) {
+                    prompt = `Actúa como un experto jugador histórico y pro-builder de Magic: The Gathering (formato EDH / COMMANDER).
+Nuestra misión es diseñar una lista EXCELENTE de 100 cartas para Commander multijugador (4 personas) de alto nivel, pero divertida.
+
+Reglas ESTRICTAS de Commander:
+1. Exactamente 100 cartas (1 Comandante Legendario + 99 cartas en el mazo principal). Proporciones idóneas (ej: ~37 tierras, 10 ramp, 10 robo).
+2. Regla Singleton: NO puedes repetir ninguna carta (salvo tierras básicas). SOLO 1 COPIA DE CADA CARTA.
+3. Identidad de Color: Todas las 99 cartas DEBEN pertenecer exclusivamente a la identidad de color del Comandante.
+
+Queremos usar cartas MUY POTENTES y sinergias impresionantes, pero sin combos aburridos de daño infinito ininterrumpible en turno 3. Fomenta la interacción de mesa.
+
+Parámetros para el mazo:
+- Arquetipo EDH: ${d.archetype} -> Variante: ${d.subArchetype}
+- Colores: ${d.colorsFreq}
+- Tribu Requerida: ${d.tribe === 'N/A' || d.tribe === '' ? 'La óptima' : d.tribe}
+- Instrucciones: ${d.extraNotes || 'Ninguna.'}
+
+Salida: Pásame la lista final estructurada (separada por Comandante, Criaturas, Hechizos, Artefactos, Encantamientos y Tierras) lista copiar en MTGPrint.`;
+                } else {
+                    prompt = `Actúa como un experto jugador histórico y pro-builder de Magic: The Gathering.
 Nuestra misión es diseñar una lista EXCELENTE de 60 cartas para el formato "Kitchen Table Magic" de altísimo nivel.
 
-Contexto del entorno (Battle Box): 
-Quiero jugar un mazo equilibrado para enfrentarme a mis amigos. Queremos usar cartas MUY POTENTES (vía libre para usar cartones históricos rotos, Staples míticos de Legacy/Vintage/Modern si encajan perfecto), pero queremos mantener la DIVERSIÓN. 
-Directriz vital: EL MAZO NO PUEDE GANAR CONSISTENTEMENTE EN TURNO 1 O 2 mediante combos matemáticos ininterrumpibles. Hazlo súper potente, duro y competitivo, pero que requiera interactuar y jugar un mínimo de 4-5 turnos para ganar para asegurar la experiencia de la mesa.
+Queremos usar cartas MUY POTENTES (cartones históricos rotos de Legacy/Modern), pero manteniendo la DIVERSIÓN. 
+EL MAZO NO PUEDE GANAR CONSISTENTEMENTE EN TURNO 1 O 2 mediante combos ininterrumpibles. Hazlo súper competitivo pero interactable (4-5 turnos para ganar mínimo).
 
-Aquí están mis parámetros configurados:
-- Arquetipo Principal: ${d.archetype}
-- Variación Específica: ${d.subArchetype}
+Parámetros:
+- Arquetipo Principal: ${d.archetype} -> Variante: ${d.subArchetype}
 - Exigencia de Colores: ${d.colorsFreq}
-- Raza/Tribu Requerida: ${d.tribe === 'N/A' || d.tribe === '' ? 'La óptima para la estrategia' : d.tribe}
-- Instrucciones extra obligatorias (Leélas con cuidado): ${d.extraNotes || 'Ninguna restricción extra.'}
+- Raza/Tribu Requerida: ${d.tribe === 'N/A' || d.tribe === '' ? 'La óptima' : d.tribe}
+- Instrucciones extra obligatorias: ${d.extraNotes || 'Ninguna.'}
 
-Salida esperada:
-Dame la lista final estructurada y limpia (separada por Criaturas, Hechizos, Artefactos, Tierras y Banquillo de 15), con el formato exacto listo para copiar y pegar la lista íntegra de corrido en una web generadora de proxys.`;
+Salida esperada: Lista limpia separada por Criaturas, Hechizos, Artefactos, Tierras y Banquillo de 15, formato texto copia y pega directo.`;
+                }
 
                 // Copy to clipboard
                 navigator.clipboard.writeText(prompt).then(() => {
@@ -791,23 +1096,40 @@ A continuación, los parámetros exigidos para cada uno de los ${battleBox.lengt
         btnMaster.parentNode.replaceChild(newBtnMaster, btnMaster);
 
         newBtnMaster.addEventListener('click', () => {
-             let masterPrompt = `Actúa como un diseñador Maestro de entornos cerrados de Magic: The Gathering (como un diseñador de un prestigioso "Cube" o de "Battle Box").
+             const isCmdr = battleBox.length > 0 && battleBox[0].format === 'commander';
+             let masterPrompt = "";
+             
+             if (isCmdr) {
+                 masterPrompt = `Actúa como un diseñador Maestro de metajuegos de Magic: The Gathering Commander (EDH).
+Mi misión es fabricar una "Battle Box Multijugador" de ${battleBox.length} mazos de COMMANDER de alto poder.
+
+DIRECTRICES: TODOS los ${battleBox.length} mazos deben estar al MISMO nivel de poder (Power Level 7-8). Interacción constante, magia épica y prohibición total a combos degenerados infumables en los primeros turnos que bloqueen la partida sin respuestas.
+
+REGLAS DE COMANDANTE INFALIBLES POR MAZO:
+1. 100 Cartas Exactas (1 Comandante Legendario + 99 cartas).
+2. REGLA SINGLETON: 1 sola copia máxima por carta (salvo tierras básicas).
+3. Identidad de Color estricta basada en el Comandante elegido.
+
+Parámetros exigidos para cada mazo del grupo:\n\n`;
+             } else {
+                 masterPrompt = `Actúa como un diseñador Maestro de entornos cerrados de Magic: The Gathering (como un Cube o Battle Box).
 Mi misión es fabricar de golpe nuestra próxima GRAN TANDA de ${battleBox.length} mazos de 60 cartas para Kitchen Table Magic de gran poder.
 
-Contexto: Queremos vía libre para usar Staples históricos potentes y cartones caros, PERO el requisito número uno y la Directriz Vital de Equilibrio es: 
-¡QUIERO QUE DISEÑES LAS LISTAS DE ESTOS ${battleBox.length} MAZOS A LA VEZ PARA QUE ESTÉN PERFECTAMENTE EQUILIBRADOS Y AFIANZADOS ENTRE ELLOS COMO UN ECOSISTEMA! 
-Ningún mazo debe aplastar sistemáticamente a los demás de forma matemática. Tienen que interactuar todos contra todos. Prohibido comandos que ganen la partida en turno 1-2. Interacción y partidas de mínimo 4 turnos garantizada.
+Contexto: Queremos usar cartas muy potentes y rotas, PERO el requisito número uno es: 
+¡QUIERO QUE DISEÑES LAS LISTAS DE ESTOS ${battleBox.length} MAZOS A LA VEZ PARA QUE ESTÉN PERFECTAMENTE EQUILIBRADOS Y AFIANZADOS ENTRE ELLOS! 
+Ningún mazo debe aplastar sistemáticamente a los demás. Se permiten hasta 4 copias de cartas (no es EDH).
 
-A continuación, los parámetros exigidos para cada uno de los ${battleBox.length} mazos:\n\n`;
+A continuación, los parámetros exigidos para cada uno de los ${battleBox.length} mazos de 60 cartas:\n\n`;
+             }
 
             battleBox.forEach((d, i) => {
                 masterPrompt += `--- [MAZO ${i+1}]: ${d.archetype.toUpperCase()} -> Variante: ${d.subArchetype} ---
-- Colores obligados: ${d.colorsFreq}
+- Colores requeridos: ${d.colorsFreq}
 - Tribu requerida (si aplica): ${d.tribe === 'N/A' || d.tribe === '' ? 'Óptima para estrategia' : d.tribe}
-- Notas extra mías: ${d.extraNotes || 'Ninguna restricción.'}\n\n`;
+- Notas extra: ${d.extraNotes || 'Ninguna restricción.'}\n\n`;
             });
 
-            masterPrompt += `Hazme un pequeño resumen estratégico de su sinergia de metajuego y otórgame las ${battleBox.length} listas limpias y de corrido listas para copiar a MTGPrint.`;
+            masterPrompt += `Hazme un pequeño resumen estratégico de su sinergia cruzada y otórgame las ${battleBox.length} listas limpias y de corrido listas para imprimir.`;
 
             navigator.clipboard.writeText(masterPrompt).then(() => {
                 const originalText = newBtnMaster.textContent;
@@ -1183,6 +1505,7 @@ A continuación, los parámetros exigidos:\n\n`;
                         title: title,
                         note: note,
                         date: dateStr,
+                        format: globalFormat,
                         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                         content: lastAiResponse
                     });
@@ -1213,6 +1536,7 @@ A continuación, los parámetros exigidos:\n\n`;
                     title: title,
                     note: note,
                     date: dateStr, 
+                    format: globalFormat,
                     content: lastAiResponse 
                 });
                 localStorage.setItem('saved_decklists', JSON.stringify(savedDecklists));
@@ -1623,10 +1947,17 @@ Haz tu respuesta limpia, estéticamente agradable e innegable.`;
                 const titulo = item.title || `Generación Anónima`;
                 const nota = item.note ? `<p style="font-size: 0.95rem; color: #facc15; font-style: italic; margin-bottom: 0.5rem;">"${item.note}"</p>` : '';
                 
+                let formatBadge = `<span style="background: rgba(239, 68, 68, 0.4); color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; border: 1px solid #ef4444; margin-left: 0.5rem;">⚔️ CLÁSICO 60</span>`;
+                let borderColor = `rgba(59, 130, 246, 0.4)`;
+                if (item.format === 'commander') {
+                    formatBadge = `<span style="background: rgba(245, 158, 11, 0.4); color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; border: 1px solid #f59e0b; margin-left: 0.5rem;">👑 COMMANDER 100</span>`;
+                    borderColor = `rgba(245, 158, 11, 0.4)`;
+                }
+                
                 html += `
-                <div class="bb-item" style="border-color: rgba(59, 130, 246, 0.4);">
+                <div class="bb-item community-format-${item.format || 'standard'}" style="border-color: ${borderColor};">
                     <div class="bb-info">
-                        <h4 style="color: #3b82f6; font-size: 1.5rem; margin-bottom: 0.2rem;">🌟 ${titulo}</h4>
+                        <h4 style="color: #3b82f6; font-size: 1.5rem; margin-bottom: 0.2rem; display:flex; align-items:center;">🌟 ${titulo} ${formatBadge}</h4>
                         <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;">🌎 Sincronizado el: ${item.date}</p>
                         ${nota}
                         <p style="font-size: 0.9rem; color: #cbd5e1;">${(item.content || "").substring(0, 100).replace(/\n/g, ' ')}...</p>
@@ -1666,6 +1997,42 @@ Haz tu respuesta limpia, estéticamente agradable e innegable.`;
                             setTimeout(() => window.scrollTo({ top: aiPanelDiv.offsetTop - 50, behavior: 'smooth' }), 300);
                         }
                     }
+                });
+            });
+
+            // Lógica de los filtros de formatos
+            const filtersDiv = document.getElementById('community-filters');
+            filtersDiv.style.display = 'flex';
+            
+            const filterBtns = document.querySelectorAll('.btn-filter-format');
+            filterBtns.forEach(f => {
+                f.addEventListener('click', (e) => {
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active');
+                        b.style.background = 'transparent';
+                    });
+                    
+                    e.target.classList.add('active');
+                    const colorMap = {
+                        'all': 'rgba(59, 130, 246, 0.4)',
+                        'standard': 'rgba(239, 68, 68, 0.4)',
+                        'commander': 'rgba(245, 158, 11, 0.4)'
+                    };
+                    const filterType = e.target.getAttribute('data-filter');
+                    e.target.style.background = colorMap[filterType];
+                    
+                    // Ocultar / Mostrar
+                    listDiv.querySelectorAll('.bb-item').forEach(itemHTML => {
+                        if (filterType === 'all') {
+                            itemHTML.style.display = 'flex';
+                        } else {
+                            if (itemHTML.classList.contains(`community-format-${filterType}`)) {
+                                itemHTML.style.display = 'flex';
+                            } else {
+                                itemHTML.style.display = 'none';
+                            }
+                        }
+                    });
                 });
             });
 
