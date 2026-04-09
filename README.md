@@ -48,7 +48,7 @@ La herramienta agrupará todas tus configuraciones y le enviará un "Mega-Prompt
 *   **Hover de Scryfall:** Pasa el ratón por encima de cualquier carta en las listas generadas (estarán rodeadas de colores morados mágicos) para ver una previsualización de la carta real usando la base de datos de *Scryfall*.
 *   **Bóveda Histórica:** Guarda los resultados de tus generaciones bautizando los lotes con un título y una pequeña nota, para no perder nunca esas configuraciones de mazos que tanto os gustaron a ti y a tus amigos.
 *   **Compartir Lotes:** Haz click en los botones sociales para enviar las listas completas por WhatsApp o Telegram y empezar a imprimirlas.
-*   **Tribunal de Juicio (DeepSeek R1):** *(Secreto: Haz doble click rápido en el icono 📦 de la pantalla de Battle Box)*. Se abrirá una terminal que enviará tus configuraciones a modelos avanzados de razonamiento para localizar fallos en tu meta y proponerte cambios quirúrgicos de equilibrio.
+*   **Tribunal de Juicio: En una pantalla secreta...Se abrirá una terminal que enviará tus configuraciones a modelos avanzados de razonamiento para localizar fallos en tu meta y proponerte cambios quirúrgicos de equilibrio.
 
 ---
 
