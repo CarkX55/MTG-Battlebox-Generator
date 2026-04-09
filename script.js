@@ -359,7 +359,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const detailScreen = document.getElementById('detail-screen');
     const battleboxScreen = document.getElementById('battlebox-screen');
     const archiveScreen = document.getElementById('archive-screen');
+    const communityScreen = document.getElementById('community-screen');
     const btnOpenArchive = document.getElementById('btn-open-archive');
+    const btnOpenCommunity = document.getElementById('btn-open-community');
+
+    // Inicializar Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyBmwm7-hNy44HzESAzVBuc6Bw803svC6kc",
+      authDomain: "mtg-battlebox-generator-c2454.firebaseapp.com",
+      projectId: "mtg-battlebox-generator-c2454",
+      storageBucket: "mtg-battlebox-generator-c2454.firebasestorage.app",
+      messagingSenderId: "664986509467",
+      appId: "1:664986509467:web:839d823337910fb58c263e"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    const GUILD_PASSWORD = "Proxyspordoquier2026"; // Contraseña preacordada 
+    let isCommunityUnlocked = localStorage.getItem('guild_unlocked') === 'true';
+    let pendingCommunityAction = null; // para saber si quería abrir 'view' o 'publish'
     
     // Variables globales accesibles por todos los módulos (incluyendo el Tribunal Superior)
     let lastAiResponse = ""; // 🧠 Memoria compartida para la respuesta IA
@@ -460,6 +478,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnConfirmArchive = document.getElementById('btn-confirm-archive');
 
     closeArchModal.addEventListener('click', () => { archOverlay.classList.remove('active'); });
+
+    // Community Password variables
+    const passOverlay = document.getElementById('password-overlay');
+    const closePassModal = document.getElementById('close-password-modal');
+    const passInput = document.getElementById('community-password');
+    const btnConfirmPass = document.getElementById('btn-confirm-password');
+    const passError = document.getElementById('password-error');
+
+    closePassModal.addEventListener('click', () => { 
+        passOverlay.classList.remove('active'); 
+        passInput.value = '';
+        passError.style.display = 'none';
+    });
     
     let activeSelection = {}; // Stores temp config data
 
@@ -512,6 +543,26 @@ document.addEventListener('DOMContentLoaded', () => {
     if (backArch) {
         backArch.addEventListener('click', () => {
             switchViews(archiveScreen, homeScreen);
+        });
+    }
+
+    // Nav: Open Community Vault
+    if (btnOpenCommunity) {
+        btnOpenCommunity.addEventListener('click', () => {
+             if (isCommunityUnlocked) {
+                 openCommunityScreen();
+             } else {
+                 pendingCommunityAction = 'view';
+                 passOverlay.classList.add('active');
+             }
+        });
+    }
+
+    // Nav: Back from Community
+    const backCom = document.getElementById('btn-back-from-community');
+    if(backCom) {
+        backCom.addEventListener('click', () => {
+             switchViews(communityScreen, homeScreen);
         });
     }
 
@@ -1053,6 +1104,7 @@ A continuación, los parámetros exigidos:\n\n`;
 
     // --- ACCIONES SECUNDARIAS DE LA IA: GUARDAR Y COMPARTIR ---
     const btnSaveAiDecks = document.getElementById('btn-save-ai-decks');
+    const btnPublishCommunity = document.getElementById('btn-publish-community');
     const btnShareWhatsapp = document.getElementById('btn-share-whatsapp');
     const btnShareTelegram = document.getElementById('btn-share-telegram');
 
@@ -1083,11 +1135,100 @@ A continuación, los parámetros exigidos:\n\n`;
                 btnSaveAiDecks.innerHTML = "✅ ¡Archivado!";
                 btnSaveAiDecks.style.background = "rgba(16, 185, 129, 0.5)";
                 setTimeout(() => {
-                    btnSaveAiDecks.innerHTML = "💾 Archivar";
+                    btnSaveAiDecks.innerHTML = "💾 Archivar Local";
                     btnSaveAiDecks.style.background = "rgba(16, 185, 129, 0.2)";
                 }, 2000);
             }
-            alert("¡Lote de mazos bautizado y guardado con éxito!");
+            alert("¡Lote de mazos guardado con éxito en tu ordenador!");
+        });
+    }
+
+    // Variables de estado para no pisar el modal de Archivo
+    let isPublishingToCommunity = false;
+
+    if (btnPublishCommunity) {
+        btnPublishCommunity.addEventListener('click', () => {
+            if (!lastAiResponse) return;
+            if (isCommunityUnlocked) {
+                isPublishingToCommunity = true;
+                archTitle.value = "";
+                archNote.value = "";
+                document.getElementById('archive-overlay').querySelector('h3').textContent = "Publicar en la Bóveda General";
+                document.getElementById('btn-confirm-archive').textContent = "Subir a la nube";
+                archOverlay.classList.add('active');
+            } else {
+                pendingCommunityAction = 'publish';
+                passOverlay.classList.add('active');
+            }
+        });
+    }
+
+    // Modificación de la Bóveda para discernir si es local o publica
+    if (btnConfirmArchive) {
+        // Debemos eliminar el listener anterior y hacer uno nuevo para manejar ambos flujos
+        const clonedBtn = btnConfirmArchive.cloneNode(true);
+        btnConfirmArchive.parentNode.replaceChild(clonedBtn, btnConfirmArchive);
+        
+        clonedBtn.addEventListener('click', async () => {
+            const title = archTitle.value.trim() || (isPublishingToCommunity ? 'Aporte de Planeswalker' : 'Generación Anónima');
+            const note = archNote.value.trim();
+            const dateStr = new Date().toLocaleString();
+
+            if (isPublishingToCommunity) {
+                clonedBtn.textContent = "Sincronizando...";
+                clonedBtn.disabled = true;
+
+                try {
+                    await db.collection("community-vault").add({
+                        title: title,
+                        note: note,
+                        date: dateStr,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                        content: lastAiResponse
+                    });
+                    
+                    archOverlay.classList.remove('active');
+                    if (btnPublishCommunity) {
+                        btnPublishCommunity.innerHTML = "✅ ¡Publicado!";
+                        btnPublishCommunity.style.background = "rgba(59, 130, 246, 0.5)";
+                        setTimeout(() => {
+                            btnPublishCommunity.innerHTML = "🌐 Publicar Online";
+                            btnPublishCommunity.style.background = "rgba(59, 130, 246, 0.2)";
+                        }, 2000);
+                    }
+                    alert("¡Lote de mazos sincronizado con éxito en la nube de Firebase!");
+                } catch (e) {
+                    console.error("Error al publicar:", e);
+                    alert("Error subiendo a la base de datos.");
+                } finally {
+                    clonedBtn.disabled = false;
+                    clonedBtn.textContent = "Guardar en la Bóveda";
+                    isPublishingToCommunity = false;
+                    document.getElementById('archive-overlay').querySelector('h3').textContent = "Bautizar Generación";
+                }
+            } else {
+                // Guardado Local
+                let savedDecklists = JSON.parse(localStorage.getItem('saved_decklists')) || [];
+                savedDecklists.push({ 
+                    title: title,
+                    note: note,
+                    date: dateStr, 
+                    content: lastAiResponse 
+                });
+                localStorage.setItem('saved_decklists', JSON.stringify(savedDecklists));
+                
+                archOverlay.classList.remove('active');
+
+                if (btnSaveAiDecks) {
+                    btnSaveAiDecks.innerHTML = "✅ ¡Archivado Local!";
+                    btnSaveAiDecks.style.background = "rgba(16, 185, 129, 0.5)";
+                    setTimeout(() => {
+                        btnSaveAiDecks.innerHTML = "💾 Archivar";
+                        btnSaveAiDecks.style.background = "rgba(16, 185, 129, 0.2)";
+                    }, 2000);
+                }
+                alert("¡Lote guardado en Local!");
+            }
         });
     }
 
@@ -1406,6 +1547,122 @@ Haz tu respuesta limpia, estéticamente agradable e innegable.`;
             localStorage.setItem('saved_decklists', JSON.stringify(data));
             renderArchiveBox(); // refrescar
         }));
+    }
+
+    // ----------------------------------------------------
+    // LÓGICA DE FIREBASE COMUNITARIO
+    // ----------------------------------------------------
+    btnConfirmPass.addEventListener('click', () => {
+        const val = passInput.value.trim();
+        if (val === GUILD_PASSWORD) {
+            isCommunityUnlocked = true;
+            localStorage.setItem('guild_unlocked', 'true');
+            passError.style.display = 'none';
+            passOverlay.classList.remove('active');
+
+            // Flujo según el botón precionado
+            if (pendingCommunityAction === 'view') {
+                openCommunityScreen();
+            } else if (pendingCommunityAction === 'publish') {
+                btnPublishCommunity.click(); // Re-disparar ahora desbloqueado
+            }
+        } else {
+            passError.style.display = 'block';
+        }
+    });
+
+    passInput.addEventListener('keypress', (e) => {
+        if(e.key === 'Enter') btnConfirmPass.click();
+    });
+
+    function openCommunityScreen() {
+        const active = document.querySelector('.view.active-view');
+        if(active !== communityScreen) switchViews(active, communityScreen);
+        renderCommunityBox();
+    }
+
+    async function renderCommunityBox() {
+        const loader = document.getElementById('community-loader');
+        const listDiv = document.getElementById('community-list');
+        listDiv.style.display = 'none';
+        loader.style.display = 'block';
+
+        try {
+            const querySnapshot = await db.collection("community-vault").orderBy("timestamp", "desc").get();
+            
+            if (querySnapshot.empty) {
+                listDiv.innerHTML = `<div class="empty-bb" style="color: #3b82f6;">El santuario está vacío. Aún no hay registros globales.</div>`;
+                loader.style.display = 'none';
+                listDiv.style.display = 'block';
+                return;
+            }
+
+            let html = '';
+            const communityData = [];
+
+            querySnapshot.forEach((doc) => {
+                const item = doc.data();
+                item.docId = doc.id;
+                communityData.push(item);
+                
+                const titulo = item.title || `Generación Anónima`;
+                const nota = item.note ? `<p style="font-size: 0.95rem; color: #facc15; font-style: italic; margin-bottom: 0.5rem;">"${item.note}"</p>` : '';
+                
+                html += `
+                <div class="bb-item" style="border-color: rgba(59, 130, 246, 0.4);">
+                    <div class="bb-info">
+                        <h4 style="color: #3b82f6; font-size: 1.5rem; margin-bottom: 0.2rem;">🌟 ${titulo}</h4>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;">🌎 Sincronizado el: ${item.date}</p>
+                        ${nota}
+                        <p style="font-size: 0.9rem; color: #cbd5e1;">${(item.content || "").substring(0, 100).replace(/\n/g, ' ')}...</p>
+                    </div>
+                    <div class="bb-actions">
+                        <button class="btn-prompt btn-view-community" data-id="${item.docId}" style="background: rgba(59, 130, 246, 0.8); border: 1px solid #60a5fa;">Ver y Copiar</button>
+                    </div>
+                </div>
+                `;
+            });
+
+            // Guardamos localmente un map id->content rápido
+            window._tempCommunityData = communityData;
+
+            listDiv.innerHTML = html;
+            
+            listDiv.querySelectorAll('.btn-view-community').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const docId = e.target.getAttribute('data-id');
+                    const targetData = window._tempCommunityData.find(d => d.docId === docId);
+                    
+                    if(targetData) {
+                        lastAiResponse = targetData.content;
+                        const aiPanelDiv = document.getElementById('ai-generator-panel');
+                        const aiControlsDiv = document.getElementById('ai-view-controls');
+                        const aiResultsDiv = document.getElementById('ai-results-container');
+                        
+                        if (aiPanelDiv && aiControlsDiv && aiResultsDiv) {
+                            aiPanelDiv.style.display = 'block';
+                            aiControlsDiv.style.display = 'flex';
+                            aiResultsDiv.style.display = 'block';
+                            
+                            aiResultsDiv.innerHTML = `<div class="ai-deck-box" style="border-color: #3b82f6;">${markdownToHtml(lastAiResponse)}</div>`;
+                            if(typeof activarTooltipsMágicos === 'function') activarTooltipsMágicos();
+
+                            switchViews(communityScreen, homeScreen);
+                            setTimeout(() => window.scrollTo({ top: aiPanelDiv.offsetTop - 50, behavior: 'smooth' }), 300);
+                        }
+                    }
+                });
+            });
+
+            loader.style.display = 'none';
+            listDiv.style.display = 'block';
+            
+        } catch(err) {
+            console.error("Error consiguiendo docs", err);
+            loader.style.display = 'none';
+            listDiv.style.display = 'block';
+            listDiv.innerHTML = `<div class="empty-bb" style="color: #ef4444; border-color: #ef4444;">❌ Error contactando con Firebase. Contacta con el administrador.</div>`;
+        }
     }
 
 });

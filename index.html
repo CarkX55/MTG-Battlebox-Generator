@@ -9,6 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Firebase SDK (Compat) -->
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
     <div class="background-effects">
@@ -25,6 +29,10 @@
     <button id="btn-open-archive" class="floating-btn" style="top: 5.5rem; background: rgba(16, 185, 129, 0.2); border-color: #10b981; font-size: 0.9rem; padding: 0.8rem 1.2rem;">
         <span class="icon">📚</span> 
         Archivo Antiguo
+    </button>
+    <button id="btn-open-community" class="floating-btn" style="top: 9rem; background: rgba(59, 130, 246, 0.2); border-color: #3b82f6; font-size: 0.9rem; padding: 0.8rem 1.2rem;">
+        <span class="icon">🌐</span> 
+        Bóveda Comunidad
     </button>
 
     <!-- PANTALLA PRINCIPAL: El Salón Central -->
@@ -117,7 +125,19 @@
             <!-- Sección Opcional Experimental IA -->
             <div id="ai-generator-panel" class="ai-panel" style="background: rgba(0,0,0,0.4); padding: 1.5rem; border-radius: 12px; border: 1px dashed var(--color-gold); max-width: 600px; margin: 0 auto; display: none;">
                 <h4 style="color: var(--color-gold); font-family: 'Cinzel'; margin-bottom: 0.5rem;">🔮 Modo Experimental (Generar Aquí)</h4>
-                <p style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 1rem;">Genera tus mazos aquí mismo. Pega la <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#7dd3fc;">API Key</a> de tu IA favorita.</p>
+                
+                <div style="background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3); padding: 0.8rem 1.2rem; border-radius: 6px; margin-bottom: 1.2rem; font-size: 0.85rem; color: #bae6fd; text-align: left; line-height: 1.4;">
+                    <div style="font-weight: bold; margin-bottom: 0.4rem; color: #38bdf8;">ℹ️ ¿Qué es esto y cómo consigo la Llave (API Key)?</div>
+                    Para que la web sea inteligente sin colapsar, cada Planeswalker necesita conectar su propia "llave gratuita" de Inteligencia Artificial solo la primera vez que entra:<br>
+                    <ol style="margin-top: 0.4rem; padding-left: 1.2rem; margin-bottom: 0;">
+                        <li>Haz click en <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color: #7dd3fc; font-weight: bold; text-decoration: underline;">Google AI Studio (AQUÍ)</a> e inicia sesión con tu Gmail.</li>
+                        <li>Haz click en el gran botón azul que dice <strong>"Create API key"</strong>.</li>
+                        <li>Copia esa "contraseña secreta", vuelve a esta web y pégala en la cajita de aquí abajo.</li>
+                        <li>¡Súper Importante! Pulsa el botón de recargar <strong style="color:white; display:inline-flex; align-items:center; justify-content:center; background:#334155; padding: 0.1rem 0.3rem; border-radius:3px; font-size:0.9rem;">🔄</strong> para que se carguen los cerebros de Google.</li>
+                        <li>En el menú desplegable que se llena, selecciona obligatoriamente <strong>Gemini 3.1 Flash Lite Preview</strong> para asegurar el mejor formato.</li>
+                    </ol>
+                </div>
+
                 <div style="display: flex; flex-direction: column; gap: 0.8rem; justify-content: center; align-items: center; margin-bottom: 1rem;">
                     <div style="display: flex; gap: 0.5rem; width: 100%; align-items: stretch; justify-content: center;">
                         <select id="ai-provider" style="padding: 0.6rem; border-radius: 6px; border: 1px solid var(--color-gold); background: #1e293b; color: white; cursor: pointer;">
@@ -151,8 +171,11 @@
                     📋 Vista Individual
                 </button>
                 <div style="width: 1px; background: rgba(255,255,255,0.2); height: 30px; margin: 0 0.5rem;"></div>
-                <button id="btn-save-ai-decks" style="padding: 0.5rem 1.2rem; border-radius: 20px; border: 1px solid #10b981; background: rgba(16, 185, 129, 0.2); color: white; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;" title="Guardar esto en el Archivo Histórico">
+                <button id="btn-save-ai-decks" style="padding: 0.5rem 1.2rem; border-radius: 20px; border: 1px solid #10b981; background: rgba(16, 185, 129, 0.2); color: white; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;" title="Guardar esto en el Archivo Histórico Local">
                     💾 Archivar
+                </button>
+                <button id="btn-publish-community" style="padding: 0.5rem 1.2rem; border-radius: 20px; border: 1px solid #3b82f6; background: rgba(59, 130, 246, 0.2); color: white; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;" title="Subir a la nube para que toda la comunidad pueda verlo">
+                    🌐 Publicar Online
                 </button>
                 <button id="btn-share-whatsapp" style="padding: 0.5rem 1.2rem; border-radius: 20px; border: 1px solid #25D366; background: rgba(37, 211, 102, 0.2); color: white; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;" title="Enviar listas completas por WhatsApp">
                     📲 WhatsApp
@@ -219,6 +242,46 @@
             <!-- Archivos inyectados por JS -->
         </div>
     </main>
+
+    <!-- PANTALLA QUINTA: La Bóveda Comunitaria -->
+    <main id="community-screen" class="container view">
+        <div class="screen-header" style="border-color: #3b82f6; box-shadow: 0 0 40px rgba(59, 130, 246, 0.1);">
+            <button class="btn-back" id="btn-back-from-community">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Regresar al Salón
+            </button>
+            <div class="detail-title" style="color: #3b82f6;">
+                <span>🌐</span> <span>EL SANTUARIO COMUNITARIO</span>
+            </div>
+            <div style="font-size: 1.2rem; margin-bottom: 0.5rem; letter-spacing: 2px;">El Archivo Sincronizado del Gremio</div>
+            <div class="detail-quote" style="color: #3b82f6;">"Aportes mágicos compartidos por los Planeswalkers desde cualquier rincón. Protegido bajo contraseña."</div>
+        </div>
+
+        <div id="community-loader" style="text-align:center; padding: 3rem; color: #3b82f6;">
+            <div style="font-size: 1.5rem; margin-bottom: 1rem;" class="glitch-text" data-text="Sincronizando con Firebase...">Sincronizando con Firebase...</div>
+        </div>
+
+        <div id="community-list" class="bb-list" style="display: none;">
+            <!-- Bases de datos inyectadas vía Firebase -->
+        </div>
+    </main>
+
+    <!-- Modal Contraseña Comunidad -->
+    <div id="password-overlay" class="selection-overlay">
+        <div class="modal-box" style="border-color: #3b82f6; box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);">
+            <button id="close-password-modal" class="btn-close-modal">✖</button>
+            <h3 style="color: #3b82f6;">Autenticación del Gremio</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem;">Acceso restringido a la base de datos mundial de la Battle Box.</p>
+            
+            <div class="form-group">
+                <label>Contraseña Secreta:</label>
+                <input type="password" id="community-password" placeholder="Solo los dignos podrán pasar..."/>
+            </div>
+
+            <button id="btn-confirm-password" class="btn-save-bb" style="background: rgba(59, 130, 246, 0.3); border: 1px solid #3b82f6; color: white;">Verificar Acceso</button>
+            <div id="password-error" style="color: #ef4444; margin-top: 1rem; display: none; font-size: 0.9rem;">🚫 Contraseña incorrecta. Intruso detectado.</div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
