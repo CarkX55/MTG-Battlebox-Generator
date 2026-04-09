@@ -1293,8 +1293,23 @@ A continuación, los parámetros exigidos:\n\n`;
             });
 
             card.addEventListener('mousemove', (e) => {
-                tooltip.style.left = (e.pageX + 15) + 'px';
-                tooltip.style.top = (e.pageY + 15) + 'px';
+                const tooltipWidth = 250;
+                const tooltipHeight = 350;
+                let finalX = e.pageX + 15;
+                let finalY = e.pageY + 15;
+
+                // Si choca por la derecha
+                if (e.clientX + tooltipWidth + 30 > window.innerWidth) {
+                    finalX = e.pageX - tooltipWidth - 15;
+                }
+                
+                // Si choca por debajo (límite visual de la ventana actual)
+                if (e.clientY + tooltipHeight + 30 > window.innerHeight) {
+                    finalY = e.pageY - tooltipHeight - 15;
+                }
+
+                tooltip.style.left = finalX + 'px';
+                tooltip.style.top = finalY + 'px';
             });
 
             card.addEventListener('mouseleave', () => {
